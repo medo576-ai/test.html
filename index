@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Frame WebAR</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #dcdcdc; /* Light gray background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column; /* Allow for text at the top */
+        }
+
+        /* Text at the top */
+        .info-text {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%); /* Center the text horizontally */
+            font-size: 16px; /* Increased font size to 16px for readability */
+            color: black;
+            text-align: center;
+        }
+
+        /* Remove border and box around the model */
+        model-viewer {
+            width: 80vw;
+            height: 80vh;
+            position: relative;
+            z-index: 1;
+            background-color: #dcdcdc; /* Light gray background */
+        }
+
+        /* AR Button Styling */
+        .ar-button {
+            position: absolute;
+            bottom: 30px; /* Adjusted distance from the bottom */
+            right: 16px;
+            width: 40px; /* Reduced size */
+            height: 40px; /* Reduced size */
+            background: #dcdcdc; /* Same as the background */
+            border-radius: 50%;
+            border: 2px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+        .ar-button img {
+            width: 24px; /* Reduced icon size */
+            height: 24px; /* Reduced icon size */
+        }
+
+        /* Button Container */
+        .color-buttons {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        /* Elegant Button Styling */
+        .boton-elegante {
+            padding: 10px 20px;
+            border: 2px solid black; /* Black border */
+            background-color: #dcdcdc; /* Light gray */
+            color: black; /* Black text */
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .boton-elegante:hover {
+            background-color: #dcdcdc; /* Slightly darker gray */
+        }
+
+        /* White Button */
+        .white-btn {
+            background-color: #f0f0f0; /* Light gray */
+            color: black; /* Black text */
+            border: 2px solid black; /* Black border */
+        }
+        .white-btn:hover {
+            background-color: #dcdcdc; /* Slightly darker gray */
+        }
+
+        /* Gold Button */
+        .gold-btn {
+            background-color: #f0f0f0; /* Light gray */
+            color: black; /* Black text */
+            border: 2px solid black; /* Black border */
+        }
+        .gold-btn:hover {
+            background-color: #dcdcdc; /* Slightly darker gray */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Text on top of the page -->
+    <div class="info-text">The 3d models are not 100% like reality</div>
+
+    <!-- 3D Frame Viewer -->
+    <model-viewer 
+        id="frameViewer"
+        src="https://res.cloudinary.com/dwc7ebhc5/image/upload/v1738060218/black_3d_frame_model_CR7_g60dxp.glb"
+        ar 
+        ar-modes="scene-viewer quick-look webxr"
+        ar-placement="wall"
+        environment-image="neutral"
+        disable-pan
+        disable-tap
+        disable-zoom
+        camera-controls
+        auto-rotate>
+        
+        <!-- AR Button -->
+        <button slot="ar-button" class="ar-button">
+            <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="AR">
+        </button>
+    </model-viewer>
+
+    <!-- Color Change Buttons -->
+    <div class="color-buttons">
+        <button class="boton-elegante" onclick="changeModel('black')">Black</button>
+        <button class="boton-elegante white-btn" onclick="changeModel('white')">White</button>
+        <button class="boton-elegante gold-btn" onclick="changeModel('gold')">Gold</button>
+    </div>
+
+    <script>
+        function changeModel(color) {
+            const frameViewer = document.getElementById("frameViewer");
+            if (color === 'black') {
+                frameViewer.src = "https://res.cloudinary.com/dwc7ebhc5/image/upload/v1738060218/black_3d_frame_model_CR7_g60dxp.glb";
+                document.body.style.backgroundColor = "#dcdcdc"; // Light gray
+            } else if (color === 'white') {
+                frameViewer.src = "https://res.cloudinary.com/dwc7ebhc5/image/upload/v1738060222/whita_3d_frame_model_CR7_a2wjyd.glb";
+                document.body.style.backgroundColor = "#dcdcdc"; // Slightly darker gray for contrast
+            } else if (color === 'gold') {
+                frameViewer.src = "https://res.cloudinary.com/dwc7ebhc5/image/upload/v1738060219/gold_3d_frame_model_CR7_anolxj.glb";
+                document.body.style.backgroundColor = "#dcdcdc"; // Light gray
+            }
+        }
+    </script>
+
+</body>
+</html>
